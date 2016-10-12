@@ -1,0 +1,14 @@
+---
+name: "{{ Name }}"
+version: "{{ SemanticVersion }}"
+description: "{{ Description }}"
+keywords:
+  - "{{ Keyword }}"
+home: "{{ HomepageUrl }}"
+sources:
+  - "{{ SourceUrl }}"
+maintainers: 
+  - name: "{{ Author }}"
+    email: "{{ Email }}"
+engine: gotpl 
+icon: "{{ LogoUrl }}" # Todo: This must be SVG or PNG
