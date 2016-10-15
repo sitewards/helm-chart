@@ -1,9 +1,10 @@
 {
-  "TemplateName": "boilr-template",
-  "Authors": "Andrew Howden <hello[at]andrewhowden.com>",
-  "Year": "2016",
-  "GithubReference": "littlemanco/boilr-template",
-  "ProjectGoal": "",
-  "SimilarWork": "",
-  "Justification": ""
+  "Name":            "kube-cert-manager",
+  "SemanticVersion": "0.1.0",
+  "Description":     "Automatically provisions TLS certificates from Lets Encrypt for use in the Kubernetes cluster",
+  "Keyword":         "LetsEncrypt",
+  "HomepageUrl":     "https://github.com/PalmStoneGames/kube-cert-manager",
+  "Author":          "Andrew Howden",
+  "Email":           "hello[at]andrewhowden.com",
+  "LogoUrl":         "https://placekitten.com/g/300/200"
 }
