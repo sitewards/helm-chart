@@ -1,8 +1,8 @@
 ==========
-{{ Name }}
+schmidt
 ==========
 
-Accessing {{ Name }}
+Accessing schmidt
 --------------------
 
 // Todo: Fill this in.

@@ -1,1 +1,38 @@
 ---
+## Change the name of the resource
+## Default: use the chart name
+#nameOverride:
+## The image to use with the resource
+## Ref: https://quay.io/repository/littlemanco/apache-php
+## Default: quay.io/littlemanco/apache-php:7-latest
+#image:
+#securityContext:
+## Whether the container should be run in "Privileged" mode (essentially, root on the host)
+## Ref: http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_securitycontext
+## Default: false
+#privileged:
+## What scope the service should be exposed in. One of:
+## - LoadBalancer (to the world)
+## - ClusterIP (to the cluster)
+## - NodePort (to the world, in a custom way)
+#serviceType:
+## Ref: http://kubernetes.io/docs/user-guide/compute-resources/
+## Ref: https://github.com/kubernetes/kubernetes/blob/master/docs/design/resource-qos.md
+## Ref: https://docs.docker.com/engine/reference/run/#/runtime-constraints-on-resources
+resources:
+  requests:
+    ## How much CPU this container is expected to need
+    cpu: 100m
+    ## How much memory this container is expected to need
+    memory: 512Mi
+  limits:
+    ## The max CPU this container should be allowed to use
+    cpu: 100m
+    ## The max memory this container should be allowed to use. Note: If a container exceeds its memory limit, 
+    ## it may terminated.
+    memory: 512Mi
+
+monitoring:
+  scrape:
+    ## Whether to scrape this service with the montoring toolkit. Service must expose metrics in the prometheus format.
+    service: false

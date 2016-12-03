@@ -1,0 +1,75 @@
+---
+apiVersion: "extensions/v1beta1"
+kind: "DaemonSet"
+metadata:
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    heritage: "{{ .Release.Service }}"
+    release: "{{ .Release.Name }}"
+  name: {{ template "fullname" . }}
+spec:
+  template:
+    metadata:
+      labels:
+        application: "node-exporter"
+        role: "metrics"
+        version: "1.0.0"
+    spec:
+      # volumes:
+      #   - name: "nodeexporter-etc-conf-d"
+      # configMap:
+      #   - name: "nodeexporter-data"
+      #     hostPath:
+      #       path: /data/nodeexporter/
+      hostNetwork: true
+      hostPID: true
+      containers:
+        - name: "node-exporter"
+          # env:
+          # - name: "FOO"
+          #   value: "BAR"
+          image: "prom/node-exporter:0.12.0" # Todo: Update this
+          imagePullPolicy: "IfNotPresent"
+          # args:
+          #   - "command"
+          #   - "line"
+          #   - "arguments"
+          ports:
+            - containerPort: 9100
+              protocol: "TCP"
+              hostPort: 9100
+              name: "scrape"
+          # volumeMounts:
+          #   - name: "nodeexporter-etc-conf-d"
+          #     readOnly: true
+          #     mountPath: "/etc/nodeexporter/conf.d"
+          #   - name: "nodeexporter-data
+          #     readOnly: false
+          #     mountPath: "/data"
+          livenessProbe:
+            httpGet:
+              # Path to probe; should be cheap, but representative of typical behavior
+              path: "/healthz"
+              port: 9100
+              httpHeaders:
+                - name: "Host"
+                  value: "www.example.com" # Todo: Fix this
+                #- name: "X-Custom-Header"
+                #  value: "Awesome"
+            initialDelaySeconds: 15
+            timeoutSeconds: 15
+          readinessProbe:
+            httpGet:
+              # Path to probe; akin to a status check.
+              path: "/healthz"
+              port: 9100
+              httpHeaders:
+                - name: "Host"
+                  value: "www.example.com" # Todo: Fix this
+                #- name: "X-Custom-Header"
+                #  value: "Awesome"
+            initialDelaySeconds: 15
+            timeoutSeconds: 15
+      restartPolicy: "Always"
+      securityContext: {}

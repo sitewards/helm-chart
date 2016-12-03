@@ -1,0 +1,21 @@
+---
+kind: "Service"
+apiVersion: "v1"
+metadata:
+  annotations:
+    prometheus.io/scrape: {{ .Values.monitoring.scrape.service | quote }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    heritage: "{{ .Release.Service }}"
+    release: "{{ .Release.Name }}"
+  name: {{ template "fullname" . }}
+spec:
+  selector:
+    app: {{ template "fullname" . }}
+    release: "{{ .Release.Name }}"
+  ports:
+    - protocol: __CONTAINER_PORT_PROTOCOL__
+      name: __CONTAINER_PORT_NAME__
+      port: __CONTAINER_PORT__
+  type: {{ default "ClusterIP" .Values.serviceType }}
