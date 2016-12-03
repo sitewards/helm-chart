@@ -9,7 +9,7 @@ metadata:
     release: "{{ .Release.Name }}"
   name: {{ template "fullname" . }}
 spec:
-  replicas: 2
+  replicas: {{ default 2 .Values.replicas }}
   selector:
     matchLabels:
       app: {{ template "fullname" . }}

@@ -12,18 +12,20 @@
 ## Whether the container should be run in "Privileged" mode (essentially, root on the host)
 ## Ref: http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_securitycontext
 ## Default: false
+#  privileged:
 
-#privileged:
 ## What scope the service should be exposed in. One of:
 ## - LoadBalancer (to the world)
 ## - ClusterIP (to the cluster)
 ## - NodePort (to the world, in a custom way)
-
 #serviceType:
+
+## How many versions of this service to run on kubernetes
+replicas: 1
+
 ## Ref: http://kubernetes.io/docs/user-guide/compute-resources/
 ## Ref: https://github.com/kubernetes/kubernetes/blob/master/docs/design/resource-qos.md
 ## Ref: https://docs.docker.com/engine/reference/run/#/runtime-constraints-on-resources
-
 resources:
   requests:
     ## How much CPU this container is expected to need
