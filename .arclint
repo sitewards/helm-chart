@@ -1,0 +1,16 @@
+{
+  "linters": {
+    "yamllint": {
+      "type": "script-and-regex",
+      "include": "(\\.(yaml|yml)$)",
+      "script-and-regex.script": "sh -c '/usr/bin/yamllint -f parsable \"$0\" || true'",
+      "script-and-regex.regex": "/^(?P<file>[A-z\\.\\/]+):(?P<line>[0-9]+):(?P<char>[0-9]+):\\s\\[(?P<severity>[a-z]+)\\]\\s(?P<message>.*)\\((?P<name>.*)\\)$/m"
+    },
+    "spelling": {
+      "type": "script-and-regex",
+      "include": "(\\.md$)",
+      "script-and-regex.script": "sh -c 'cat \"$0\" | /usr/bin/aspell --personal=`pwd`/dev/aspell.en.pws pipe | grep \"^[&]\"' || true",
+      "script-and-regex.regex": "/^(?P<message>.*)/m"
+    }
+  }
+}
