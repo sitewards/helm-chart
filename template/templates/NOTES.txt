@@ -1,9 +1,9 @@
-==========
-schmidt
-==========
+===========================
+{{ template "fullname" . }}
+===========================
 
-Accessing schmidt
---------------------
+Accessing {{ template "fullname" . }}
+-------------------------------------
 
 // Todo: Fill this in.
 
