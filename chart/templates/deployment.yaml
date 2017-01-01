@@ -13,7 +13,7 @@ spec:
   selector:
     matchLabels:
       app: {{ template "fullname" . }}
-      release: "{{ .Release.Name }}" 
+      release: "{{ .Release.Name }}"
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -23,7 +23,7 @@ spec:
     metadata:
       labels:
         app: {{ template "fullname" . }}
-        release: "{{ .Release.Name }}" 
+        release: "{{ .Release.Name }}"
     spec:
       # volumes:
       #   - name: "webserver-etc-conf-d"
@@ -39,7 +39,7 @@ spec:
           image: {{ .Values.image | quote }}
           # args:
           #   - "command"
-          #   - "line" 
+          #   - "line"
           #   - "arguments"
           resources:
             limits:
@@ -52,43 +52,43 @@ spec:
             privileged: {{ default "false" .Values.securityContext.privileged }}
             # capabilities:
               # add:
-                # - SETPCAP
-                # - SYS_MODULE
-                # - SYS_RAWIO
-                # - SYS_PACCT
-                # - SYS_ADMIN
-                # - SYS_NICE
-                # - SYS_RESOURCE
-                # - SYS_TIME
-                # - SYS_TTY_CONFIG
-                # - MKNOD
-                # - AUDIT_WRITE
-                # - AUDIT_CONTROL
-                # - MAC_OVERRIDE
-                # - MAC_ADMIN
-                # - NET_ADMIN
-                # - SYSLOG
-                # - CHOWN
-                # - NET_RAW
-                # - DAC_OVERRIDE
-                # - FOWNER
-                # - DAC_READ_SEARCH
-                # - FSETID
-                # - KILL
-                # - SETGID
-                # - SETUID
-                # - LINUX_IMMUTABLE
-                # - NET_BIND_SERVICE
-                # - NET_BROADCAST
-                # - IPC_LOCK
-                # - IPC_OWNER
-                # - SYS_CHROOT
-                # - SYS_PTRACE
-                # - SYS_BOOT
-                # - LEASE
-                # - SETFCAP
-                # - WAKE_ALARM
-                # - BLOCK_SUSPEND
+                # - "SETPCAP"
+                # - "SYS_MODULE"
+                # - "SYS_RAWIO"
+                # - "SYS_PACCT"
+                # - "SYS_ADMIN"
+                # - "SYS_NICE"
+                # - "SYS_RESOURCE"
+                # - "SYS_TIME"
+                # - "SYS_TTY_CONFIG"
+                # - "MKNOD"
+                # - "AUDIT_WRITE"
+                # - "AUDIT_CONTROL"
+                # - "MAC_OVERRIDE"
+                # - "MAC_ADMIN"
+                # - "NET_ADMIN"
+                # - "SYSLOG"
+                # - "CHOWN"
+                # - "NET_RAW"
+                # - "DAC_OVERRIDE"
+                # - "FOWNER"
+                # - "DAC_READ_SEARCH"
+                # - "FSETID"
+                # - "KILL"
+                # - "SETGID"
+                # - "SETUID"
+                # - "LINUX_IMMUTABLE"
+                # - "NET_BIND_SERVICE"
+                # - "NET_BROADCAST"
+                # - "IPC_LOCK"
+                # - "IPC_OWNER"
+                # - "SYS_CHROOT"
+                # - "SYS_PTRACE"
+                # - "SYS_BOOT"
+                # - "LEASE"
+                # - "SETFCAP"
+                # - "WAKE_ALARM"
+                # - "BLOCK_SUSPEND"
           ports:
             - containerPort: __CONTAINER_PORT__
               protocol: __CONTAINER_PORT_PROTOCOL__
@@ -102,7 +102,7 @@ spec:
           #     mountPath: "/data"
           livenessProbe:
             tcpSocket:
-              port: __CONTAINER_PORT_NAME__          
+              port: __CONTAINER_PORT_NAME__
             initialDelaySeconds: 5
             timeoutSeconds: 1
           readinessProbe:
@@ -111,4 +111,4 @@ spec:
             initialDelaySeconds: 5
             timeoutSeconds: 1
       restartPolicy: __RESTART_POLICY__
-      securityContext: {} 
+      securityContext: {}
