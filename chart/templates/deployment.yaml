@@ -110,5 +110,11 @@ spec:
               port: __CONTAINER_PORT_NAME__
             initialDelaySeconds: 5
             timeoutSeconds: 1
+      # Whether to restart this pod. Possible values are:
+      # - Always (Sensible Default)
+      # - OnFailure
+      # - Never
+      #
+      # For more information, see http://kubernetes.io/docs/user-guide/pod-states/#restartpolicy
       restartPolicy: __RESTART_POLICY__
       securityContext: {}
