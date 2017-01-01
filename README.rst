@@ -1,9 +1,9 @@
-====================
-helm-chart
-====================
+==================
+Helm Chart Starter
+==================
 
 Project Outline
-----------------
+---------------
 
 Project Goals
 '''''''''''''
@@ -13,14 +13,13 @@ Make it simple to produce the necessary boilerplate for Kubernetes helm charts
 Similar Work
 ''''''''''''
 
-None
-
+https://github.com/kubernetes/helm/blob/master/pkg/chartutil/create.go
 
 Justification
 '''''''''''''
 
-The helm specification is heavily structured and reasonably verbose by nature. It lends itself well to generation
-
+Helm has an existing default chart that it generates. However, more specific guidelines are applied to this chart,
+and there is no way to configure the default Helm chart. See:
 
 Summary
 '''''''
@@ -32,41 +31,42 @@ MIT           en-AU [lang]_
 ============= ==============
 
 Installation
--------------
+------------
 
 .. Code:: bash
 
-  $ boilr template download littlemanco/boilr-helm-chart helm-chart
+  $ git clone https://github.com/littlemanco/helm-chart /path/to/somewhere/persistent
   
 Updates
 -------
 
-I update these templates regularly. If you need to fetch the newer version, try this:
+I update these templates regularly. If you need to fetch the newer version, cd into the directory and run the git pull.
 
 .. Code:: bash
 
-  $ boilr template download littlemanco/boilr-helm-chart helm-chart -f 
+  $ cd /path/to/somewhere/persistent
+  $ git pull
 
 Usage
 -----
 
-Swap `foo` and `bar` for your own values.
+Helm allows the usage of a "template" chart when creating other charts, as follows:
 
 .. Code:: bash
 
-  $ mkdir foo
-  $ cd foo
-  $ git init
-  $ git remote set-url origin git@github.com:foo/bar.git
-  $ boilr template use helm-chart .
-  $ git add .
-  $ git commit -m "Initial Commit"
-  $ git push
+  $ #Todo: Update this
+
+This lets us "pre-populate" a chart with much of the boilerplate that is repeated across all projects. Anything that
+we know to be unique has a placeholder of the format `__PLACEHOLDER__`, and anything that needs further attention
+once the chart has been generated should have a `todo` and extensive documentation.
+
+Not all documentation has been finished (at the time of writing, in fact, none of it does).
 
 Thanks
 ------
 
-- The team behind boilr (https://github.com/tmrts/boilr)
+https://github.com/kubernetes/helm
+
 
 Contributing
 ------------
@@ -74,6 +74,6 @@ Contributing
 Contributions are always welcome! Nothing is to small, and the best place to start is to open an issue.
 
 References
------------
+----------
 
 .. [lang] Lingoes.net,. (2015). Language Code Table. Retrieved 4 June 2015, from http://www.lingoes.net/en/translator/langcode.htm
