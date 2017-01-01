@@ -35,7 +35,7 @@ Installation
 
 .. Code:: bash
 
-  $ git clone https://github.com/littlemanco/helm-chart /path/to/somewhere/persistent
+  $ git clone https://github.com/littlemanco/helm-chart ${HOME}/.helm/starters/littlemanco/chart
   
 Updates
 -------
@@ -44,7 +44,7 @@ I update these templates regularly. If you need to fetch the newer version, cd i
 
 .. Code:: bash
 
-  $ cd /path/to/somewhere/persistent
+  $ cd ${HOME}/.helm/starters/littlemanco/chart
   $ git pull
 
 Usage
@@ -54,7 +54,13 @@ Helm allows the usage of a "template" chart when creating other charts, as follo
 
 .. Code:: bash
 
-  $ #Todo: Update this
+  $ helm create chart --starter=littlemanco/chart ${CHART_NAME}
+
+Please note: For some reason, helm creates the charts where the files are executable. To fix this, run:
+
+.. Code:: bash
+
+  $ find . -type f  -exec chmod 644 {} \;
 
 This lets us "pre-populate" a chart with much of the boilerplate that is repeated across all projects. Anything that
 we know to be unique has a placeholder of the format `__PLACEHOLDER__`, and anything that needs further attention
