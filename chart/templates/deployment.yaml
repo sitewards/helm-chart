@@ -33,9 +33,24 @@ spec:
       #       path: /data/webserver/
       containers:
         - name: {{ template "name" }}
+          # Environment variables can be populated in a number of ways, including secrets, or just string values. Below
+          # are some examples for you to copy-paste. Remember to uncomment the `env` node!
+          #
           # env:
+          #
+          # An example of a simple key value pair
+          #
           # - name: "FOO"
           #   value: "BAR"
+          #
+          # An example of environment variables from a secret
+          #
+          # - name: "SECRET"
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: __SECRET_NAME__
+          #       key: __KEY_USED_IN_SECRET_NAME__
+          #
           image: {{ .Values.image | quote }}
           # args:
           #   - "command"
