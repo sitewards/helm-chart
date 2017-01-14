@@ -26,8 +26,9 @@ spec:
         release: "{{ .Release.Name }}"
     spec:
       # volumes:
-      #   - name: "webserver-etc-conf-d"
-      # configMap:
+      #   - name: {{ template "fullname" . }}
+      #     configMap:
+      #       name: configmap
       #   - name: "webserver-data"
       #     hostPath:
       #       path: /data/webserver/
