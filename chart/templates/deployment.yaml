@@ -64,7 +64,7 @@ spec:
               cpu: {{ .Values.resources.requests.cpu | quote }}
               memory: {{ .Values.resources.requests.memory | quote }}
           securityContext:
-            privileged: {{ default "false" .Values.securityContext.privileged }}
+            privileged: {{ default false .Values.securityContext.privileged }}
             # capabilities:
               # add:
                 # - "SETPCAP"

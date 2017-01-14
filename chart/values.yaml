@@ -1,24 +1,38 @@
 ---
 ## Change the name of the resource
 ## Default: use the chart name
-#nameOverride:
+# nameOverride:
 
 ## The image to use with the resource
 ## Ref: https://quay.io/repository/littlemanco/apache-php
-## Default: quay.io/littlemanco/apache-php:7-latest
-#image:
+image:
 
-#securityContext:
+# securityContext:
 ## Whether the container should be run in "Privileged" mode (essentially, root on the host)
 ## Ref: http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_securitycontext
 ## Default: false
 #  privileged:
 
-## What scope the service should be exposed in. One of:
-## - LoadBalancer (to the world)
-## - ClusterIP (to the cluster)
-## - NodePort (to the world, in a custom way)
-#serviceType:
+service:
+  ## What scope the service should be exposed in. One of:
+  ## - LoadBalancer (to the world)
+  ## - ClusterIP (to the cluster)
+  ## - NodePort (to the world, in a custom way)
+  type: "LoadBalancer"
+  ## If there is a particular IP that should be used for the service, specify it here.
+  ## Note: It's quite unlikely that an IP should be specific. Normally, the best thing to do is leave it to Kubernetes
+  ##       to allocate a free IP from the pool.
+  ## Default: Automatically assign a random IP
+  # privateIp:
+  ## Only relevant if the `type` above is "LoadBalancer"
+  loadBalancer:
+    ## If there is already a reserved public IP that this load balancer should use, indicate it here.
+    ## Default: Automatically assign a random, ephemeral IP
+    # publicIp:
+    ## If there should be firewall rules restricting the load balancer to a limited set of IPs, specify those IPs below
+    ## in CIDR format. If all IPs shoud be allowed access, set the CIDR as "0.0.0.0/0"
+    allowedIps:
+      - "0.0.0.0/0"
 
 ## How many versions of this service to run on kubernetes
 replicas: 1
