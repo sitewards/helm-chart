@@ -21,6 +21,16 @@ spec:
     type: "RollingUpdate"
   template:
     metadata:
+      annotations:
+        ## Oftentimes, applicatins need to be restarted once once thier configuration has been updated. However,
+        ## Kubernetes makes the assumption that watching the file for configuration change is the applications
+        ## responsibiliy, and doesn't restart when files change. So, the lines below modify a propery that does trigger
+        ## a rotation of the applications so they are restarted when their dependencies change.
+        ##
+        ## See https://github.com/kubernetes/helm/blob/master/docs/charts_tips_and_tricks.md#automatically-roll-deployments-when-configmaps-or-secrets-change
+        ##
+        # checksum/config: {{ include (print $.Chart.Name "/templates/secret.yaml") . | sha256sum }}
+        # checksum/config: {{ include (print $.Chart.Name "/templates/configmap.yaml") . | sha256sum }}
       labels:
         app: {{ template "fullname" . }}
         release: "{{ .Release.Name }}"
@@ -34,17 +44,17 @@ spec:
       #       path: /data/webserver/
       containers:
         - name: {{ template "name" }}
-          # Environment variables can be populated in a number of ways, including secrets, or just string values. Below
-          # are some examples for you to copy-paste. Remember to uncomment the `env` node!
+          ## Environment variables can be populated in a number of ways, including secrets, or just string values. Below
+          ## are some examples for you to copy-paste. Remember to uncomment the `env` node!
           #
           # env:
           #
-          # An example of a simple key value pair
+          ## An example of a simple key value pair
           #
           # - name: "FOO"
           #   value: "BAR"
           #
-          # An example of environment variables from a secret
+          ## An example of environment variables from a secret
           #
           # - name: "SECRET"
           #   valueFrom:
@@ -106,17 +116,17 @@ spec:
                 # - "WAKE_ALARM"
                 # - "BLOCK_SUSPEND"
           ports:
-            # The container port to expose, and how to expose it. Possible values are any valid port number. You
-            # probably want to expose your application port, though.
-            #
-            # See http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_containerport
+            ## The container port to expose, and how to expose it. Possible values are any valid port number. You
+            ## probably want to expose your application port, though.
+            ##
+            ## See http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_containerport
             - containerPort: __CONTAINER_PORT__
-              # What protocol the port uses. Possible values are:
+              ## What protocol the port uses. Possible values are:
               # - "TCP"
               # - "UDP"
               protocol: __CONTAINER_PORT_PROTOCOL__
-              # What designation to give the port. Useful later, so we can reference the port by name in the health
-              # check.
+              ## What designation to give the port. Useful later, so we can reference the port by name in the health
+              ## check.
               name: __CONTAINER_PORT_NAME__
           # volumeMounts:
           #   - name: "webserver-etc-conf-d"
@@ -135,11 +145,11 @@ spec:
               port: __CONTAINER_PORT_NAME__
             initialDelaySeconds: 5
             timeoutSeconds: 1
-      # Whether to restart this pod. Possible values are:
-      # - Always (Sensible Default)
-      # - OnFailure
-      # - Never
-      #
-      # For more information, see http://kubernetes.io/docs/user-guide/pod-states/#restartpolicy
+      ## Whether to restart this pod. Possible values are:
+      ## - Always (Sensible Default)
+      ## - OnFailure
+      ## - Never
+      ##
+      ## For more information, see http://kubernetes.io/docs/user-guide/pod-states/#restartpolicy
       restartPolicy: __RESTART_POLICY__
       securityContext: {}

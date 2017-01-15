@@ -68,11 +68,28 @@ once the chart has been generated should have a `todo` and extensive documentati
 
 Not all documentation has been finished (at the time of writing, in fact, none of it does).
 
+Development
+-----------
+
+There are various parts of the charts that cannot be automatically generated, and will require a user to make these
+decisions. However, since Helm is a newer technology and not all users are as well versed with either it, or Kubernetes,
+the sections have been heavily documented. The documentation follows the same syntax as the values.yaml syntax that
+seems common in upstream helm. A commented out code line that is supposed to be included looks as follows, with a single
+`#` character::
+
+    # thisIsACommentedOutCodeLine: "value"
+
+A comment that explains the purpose of this code, or other helpful information has two `##` characters::
+
+    ## This is explanatory text, that indicates what is going on with a given line of code.
+
+Not all of the charts are fully documented yet. As I find the need to go back and check documentation, I'm updating it
+in the starter chart.
+
 Thanks
 ------
 
 https://github.com/kubernetes/helm
-
 
 Contributing
 ------------
