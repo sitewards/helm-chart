@@ -35,13 +35,62 @@ spec:
         app: {{ template "fullname" . }}
         release: "{{ .Release.Name }}"
     spec:
+      ## Volumes are how Kubernetes expresses either networked storage or other metadata in the filesystem. There are
+      ## storage types, the most useful of which are illustrated below. Remember to uncomment the volumes: node if you
+      ## decide to use them!
+      ##
       # volumes:
-      #   - name: {{ template "fullname" . }}
-      #     configMap:
-      #       name: configmap
-      #   - name: "webserver-data"
+      ##
+      ## EMPTY DIR - Useful for scratch space, such as for CI
+      ##
+      #   - name: "__VOLUME_NAME__"
+      #     emptyDir: {}
+      ##
+      ## HOST PATH - Useful when mounting some host proprty into hte container
+      ##
+      #   - name: "__VOLUME_NAME__"
       #     hostPath:
-      #       path: /data/webserver/
+      #       path: "/path/to/your/folder"
+      ##
+      ## PERSISTENT VOLUME CLAIM - Useful to access network storage. Should be used in preference to GcePersistantDisk
+      ##                           et. al. You will need to define a persistent volume as well, for this to work.
+      ##
+      #   - name: "__VOLUME_NAME__"
+      #     persistentVolumeClaim:
+      #       claimName: "__CLAIM_NAME__"
+      ##
+      ## CONFIGMAP
+      ##
+      #   - name: "__VOLUME_NAME__"
+      #     configMap:
+      #       name: "__CONFIGMAP_NAME__"
+      ##
+      ## Note: You can also use single files from a configmap, with a syntax called "subPath". An example is below:
+      ##
+      #   - name: "__VOLUME_NAME__"
+      #     configMap:
+      #       name: "__CONFIGMAP_NAME__"
+      #       items:
+      #         - key: "__ITEM_KEY__"
+      #           path: "path/to/item"
+      ##
+      ## SECRET
+      ##
+      #   - name: "__VOLUME_NAME__"
+      #     secret:
+      #       secretName: "__SECRET_NAME__"
+      ##
+      ## DOWNWARD API
+      ##
+      #   - name: "__VOLUME_NAME__"
+      #     downwardAPI:
+      #       items:
+      #         - path: "labels"
+      #           fieldRef:
+      #             fieldPath: metadata.labels
+      #         - path: "annotations"
+      #           fieldRef:
+      #             fieldPath: metadata.annotations
       containers:
         - name: {{ template "name" }}
           ## Environment variables can be populated in a number of ways, including secrets, or just string values. Below
