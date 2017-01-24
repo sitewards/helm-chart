@@ -1,9 +1,6 @@
-===========================
-{{ template "fullname" . }}
-===========================
+# {{ template "__CHART__.fullname" . }}
 
-Accessing {{ template "fullname" . }}
--------------------------------------
+## Accessing {{ template "__CHART__.fullname" . }}
 
 // Todo: Fill this in.
 

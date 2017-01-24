@@ -3,16 +3,16 @@ apiVersion: "extensions/v1beta1"
 kind: "Deployment"
 metadata:
   labels:
-    app: {{ template "fullname" . }}
+    app: {{ template "__CHART__.fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     heritage: "{{ .Release.Service }}"
     release: "{{ .Release.Name }}"
-  name: {{ template "fullname" . }}
+  name: {{ template "__CHART__.fullname" . }}
 spec:
   replicas: {{ default 2 .Values.replicas }}
   selector:
     matchLabels:
-      app: {{ template "fullname" . }}
+      app: {{ template "__CHART__.fullname" . }}
       release: "{{ .Release.Name }}"
   strategy:
     rollingUpdate:
@@ -26,13 +26,14 @@ spec:
       ## responsibiliy, and doesn't restart when files change. So, the lines below modify a propery that does trigger
       ## a rotation of the applications so they are restarted when their dependencies change.
       ##
-      ## See https://github.com/kubernetes/helm/blob/master/docs/charts_tips_and_tricks.md#automatically-roll-deployments-when-configmaps-or-secrets-change
+      ## See https://github.com/kubernetes/helm/blob/master/docs/charts_tips_and_tricks.md
+      ##   #automatically-roll-deployments-when-configmaps-or-secrets-change
       ##
       # annotations:
         # checksum/config: {{ include (print $.Chart.Name "/templates/secret.yaml") . | sha256sum }}
         # checksum/config: {{ include (print $.Chart.Name "/templates/configmap.yaml") . | sha256sum }}
       labels:
-        app: {{ template "fullname" . }}
+        app: {{ template "__CHART__.fullname" . }}
         release: "{{ .Release.Name }}"
     spec:
       ## Volumes are how Kubernetes expresses either networked storage or other metadata in the filesystem. There are
@@ -92,7 +93,7 @@ spec:
       #           fieldRef:
       #             fieldPath: metadata.annotations
       containers:
-        - name: {{ template "name" }}
+        - name: {{ template "__CHART__.name" }}
           ## Environment variables can be populated in a number of ways, including secrets, or just string values. Below
           ## are some examples for you to copy-paste. Remember to uncomment the `env` node!
           #

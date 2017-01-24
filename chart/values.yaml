@@ -49,9 +49,13 @@ resources:
   limits:
     ## The max CPU this container should be allowed to use
     cpu: 100m
-    ## The max memory this container should be allowed to use. Note: If a container exceeds its memory limit, 
+    ## The max memory this container should be allowed to use. Note: If a container exceeds its memory limit,
     ## it may terminated.
     memory: 512Mi
+
+persistence:
+  size: "10gb"
+  # storageClass:
 
 monitoring:
   scrape:

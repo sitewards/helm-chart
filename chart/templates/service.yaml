@@ -5,14 +5,14 @@ metadata:
   annotations:
     prometheus.io/scrape: {{ .Values.monitoring.scrape.service | quote }}
   labels:
-    app: {{ template "fullname" . }}
+    app: {{ template "__CHART__.fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     heritage: "{{ .Release.Service }}"
     release: "{{ .Release.Name }}"
-  name: {{ template "fullname" . }}
+  name: {{ template "__CHART__.fullname" . }}
 spec:
   selector:
-    app: {{ template "fullname" . }}
+    app: {{ template "__CHART__.fullname" . }}
     release: "{{ .Release.Name }}"
   ports:
     - protocol: __CONTAINER_PORT_PROTOCOL__
