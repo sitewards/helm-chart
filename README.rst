@@ -100,3 +100,4 @@ References
 ----------
 
 .. [lang] Lingoes.net,. (2015). Language Code Table. Retrieved 4 June 2015, from http://www.lingoes.net/en/translator/langcode.htm
+.. [honey] Gist. (2017). Honestbee Helm conventions. [online] Available at: https://gist.github.com/so0k/f927a4b60003cedd101a0911757c605a [Accessed 31 Jan. 2017].
