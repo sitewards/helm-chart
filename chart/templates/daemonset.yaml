@@ -3,11 +3,11 @@ apiVersion: "extensions/v1beta1"
 kind: "DaemonSet"
 metadata:
   labels:
-    app: {{ template "fullname" . }}
+    app: {{ template "__CHART__.fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     heritage: "{{ .Release.Service }}"
     release: "{{ .Release.Name }}"
-  name: {{ template "fullname" . }}
+  name: {{ template "__CHART__.fullname" . }}
 spec:
   template:
     metadata:
@@ -25,7 +25,7 @@ spec:
       hostNetwork: true
       hostPID: true
       containers:
-        - name: {{ template "name" }}
+        - name: {{ template "__CHART__.name" }}
           # env:
           # - name: "FOO"
           #   value: "BAR"

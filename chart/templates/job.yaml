@@ -3,16 +3,16 @@ apiVersion: "extensions/v1beta1"
 kind: "Job"
 metadata:
   labels:
-    app: {{ template "fullname" . }}
+    app: {{ template "__CHART__.fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     heritage: "{{ .Release.Service }}"
     release: "{{ .Release.Name }}"
-  name: {{ template "fullname" . }}
+  name: {{ template "__CHART__.fullname" . }}
 spec:
   template:
     metadata:
       labels:
-        app: {{ template "fullname" . }}
+        app: {{ template "__CHART__.fullname" . }}
         release: "{{ .Release.Name }}"
     spec:
       # volumes:
@@ -23,7 +23,7 @@ spec:
       #   hostPath:
       #     path: /data/secret-management/
       containers:
-        - name: {{ template "name" }}
+        - name: {{ template "__CHART__.name" }}
           # env:
           # - name: "FOO"
           #   value: "BAR"
@@ -82,8 +82,8 @@ spec:
                 # - BLOCK_SUSPEND
           ports:
             - containerPort: __CONTAINER_PORT__
-              protocol: __CONTAINER_PORT_PROTOCOL__
-              name: __CONTAINER_PORT_NAME__
+              protocol: "__CONTAINER_PORT_PROTOCOL__"
+              name: "__CONTAINER_PORT_NAME__"
           # volumeMounts:
           # - name: "secret-management-etc-conf-d"
           #   readOnly: true
@@ -93,12 +93,12 @@ spec:
           #   mountPath: "/data"
           livenessProbe:
             tcpSocket:
-              port: __CONTAINER_PORT_NAME__
+              port: "__CONTAINER_PORT_NAME__"
             initialDelaySeconds: 5
             timeoutSeconds: 1
           readinessProbe:
             tcpSocket:
-              port: __CONTAINER_PORT_NAME__
+              port: "__CONTAINER_PORT_NAME__"
             initialDelaySeconds: 5
             timeoutSeconds: 1
       restartPolicy: __RESTART_POLICY__
