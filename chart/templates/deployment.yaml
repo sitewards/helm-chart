@@ -188,13 +188,25 @@ spec:
           livenessProbe:
             tcpSocket:
               port: "__CONTAINER_PORT_NAME__"
+            ## Number of seconds after the container has started before liveness probes are initiated.
+            ## See http://kubernetes.io/docs/user-guide/pod-states#container-probes
             initialDelaySeconds: 5
+            ## Number of seconds after which the probe times out. Minimum value is 1
             timeoutSeconds: 1
+            ## Minimum consecutive failures for the probe to be considered failed after having succeeded.
+            ## Minimum value is 1.
+            failureThreshold: 3
           readinessProbe:
             tcpSocket:
               port: "__CONTAINER_PORT_NAME__"
+            ## Number of seconds after the container has started before liveness probes are initiated.
+            ## See http://kubernetes.io/docs/user-guide/pod-states#container-probes
             initialDelaySeconds: 5
+            ## Number of seconds after which the probe times out. Minimum value is 1
             timeoutSeconds: 1
+            ## Minimum consecutive failures for the probe to be considered failed after having succeeded.
+            ## Minimum value is 1.
+            failureThreshold: 3
       ## Whether to restart this pod. Possible values are:
       ## - Always (Sensible Default)
       ## - OnFailure

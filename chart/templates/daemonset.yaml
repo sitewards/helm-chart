@@ -57,8 +57,14 @@ spec:
                   value: "www.example.com" # Todo: Fix this
                 #- name: "X-Custom-Header"
                 #  value: "Awesome"
-            initialDelaySeconds: 15
-            timeoutSeconds: 15
+            ## Number of seconds after the container has started before liveness probes are initiated.
+            ## See http://kubernetes.io/docs/user-guide/pod-states#container-probes
+            initialDelaySeconds: 5
+            ## Number of seconds after which the probe times out. Minimum value is 1
+            timeoutSeconds: 1
+            ## Minimum consecutive failures for the probe to be considered failed after having succeeded.
+            ## Minimum value is 1.
+            failureThreshold: 3
           readinessProbe:
             httpGet:
               # Path to probe; akin to a status check.
@@ -69,7 +75,13 @@ spec:
                   value: "www.example.com" # Todo: Fix this
                 #- name: "X-Custom-Header"
                 #  value: "Awesome"
-            initialDelaySeconds: 15
-            timeoutSeconds: 15
+            ## Number of seconds after the container has started before liveness probes are initiated.
+            ## See http://kubernetes.io/docs/user-guide/pod-states#container-probes
+            initialDelaySeconds: 5
+            ## Number of seconds after which the probe times out. Minimum value is 1
+            timeoutSeconds: 1
+            ## Minimum consecutive failures for the probe to be considered failed after having succeeded.
+            ## Minimum value is 1.
+            failureThreshold: 3
       restartPolicy: "Always"
       securityContext: {}
