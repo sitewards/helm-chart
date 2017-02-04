@@ -3,7 +3,7 @@ kind: "Service"
 apiVersion: "v1"
 metadata:
   annotations:
-    prometheus.io/scrape: {{ .Values.monitoring.scrape.service | quote }}
+    prometheus.io/scrape: {{ .Values.monitoring.service.scrape }}
   labels:
     app: {{ template "__CHART__.fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"

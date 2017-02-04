@@ -1,14 +1,18 @@
 ---
-name: "{{ Name }}"
-version: "{{ SemanticVersion }}"
-description: "{{ Description }}"
+name: "__CHART__"
+## The version should track the upstream version, followed by the iteration. This follows the pattern established by the
+## Debian package version.
+## See https://www.debian.org/doc/debian-policy/ch-controlfields.html#s-f-Version
+version: "__VERSION__-1"
+description: "__DESCRIPTION__"
 keywords:
-  - "{{ Keyword }}"
-home: "{{ HomepageUrl }}"
+  - "__CHART__"
+home: "__HOMEPAGE__"
 sources:
-  - "{{ SourceUrl }}"
-maintainers: 
-  - name: "{{ Author }}"
-    email: "{{ Email }}"
-engine: gotpl 
-icon: "{{ LogoUrl }}" # Todo: This must be SVG or PNG
+  - "__SOURCE_URL__"
+maintainers:
+  - name: "__AUTHOR_NAME__"
+    email: "__AUTHOR_EMAIL__"
+engine: gotpl
+## This must be SVG or PNG
+icon: "__LOGO_URL__"

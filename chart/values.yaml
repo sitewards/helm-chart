@@ -58,6 +58,15 @@ persistence:
   # storageClass:
 
 monitoring:
-  scrape:
-    ## Whether to scrape this service with the montoring toolkit. Service must expose metrics in the prometheus format.
-    service: false
+  ## Whether to scrape this service with the montoring toolkit. Mostly useful for blackbox probing of a given service
+  ## to ensure it's "up"
+  service:
+    scrape: true
+  ## Whether to scape the pods associated with this application. Useful for collecting metrics.
+  pods:
+    ## Monitoring shoudl be configured to only scrape pods that have a value of `true`
+    scrape: true
+    ## Path on which metrics are exposed
+    path: "/metrics"
+    ## Port on which HTTP server is served
+    port: 9102
