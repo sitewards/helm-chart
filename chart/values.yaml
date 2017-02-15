@@ -74,7 +74,7 @@ Monitoring:
   Service:
     Scrape: "true"
   ## Whether to scape the pods associated with this application. Useful for collecting metrics.
-  Pods:
+  Pod:
     ## Monitoring shoudl be configured to only scrape pods that have a value of `true`
     Scrape: "true"
     ## Path on which metrics are exposed
