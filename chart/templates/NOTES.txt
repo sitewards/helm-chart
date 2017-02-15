@@ -1,8 +1,8 @@
-# {{ template "__CHART__.fullname" . }}
+__CHART__
 
 ## Accessing __CHART__
-
-{{- if .Values.Service.LoadBalancer.HostName }}
+----------------------
+{{ if .Values.Service.LoadBalancer.HostName }}
 1. Visit http://{{ .Values.Service.LoadBalancer.HostName }}
 {{- else }}
 1. Get the __CHART__ URL to visit by running these commands in the same shell:
