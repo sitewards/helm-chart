@@ -1,11 +1,11 @@
 # {{ template "__CHART__.fullname" . }}
 
-## Accessing {{ template "__CHART__.fullname" . }}
+## Accessing __CHART__
 
 {{- if .Values.Service.LoadBalancer.HostName }}
 1. Visit http://{{ .Values.Service.LoadBalancer.HostName }}
 {{- else }}
-1. Get the {{ template "__CHART__.fullname" . }}  URL to visit by running these commands in the same shell:
+1. Get the __CHART__ URL to visit by running these commands in the same shell:
 {{- if contains "NodePort" .Values.Service.Type }}
   export NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ template "__CHART__.fullname" . }})
   export NODE_IP=$(kubectl get nodes --namespace {{ .Release.Namespace }} -o jsonpath="{.items[0].status.addresses[0].address}")
