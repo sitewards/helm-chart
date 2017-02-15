@@ -2,6 +2,27 @@
 
 ## Accessing {{ template "__CHART__.fullname" . }}
 
-// Todo: Fill this in.
+{{- if .Values.Service.LoadBalancer.HostName }}
+1. Visit http://{{ .Values.Service.LoadBalancer.HostName }}
+{{- else }}
+1. Get the {{ template "__CHART__.fullname" . }}  URL to visit by running these commands in the same shell:
+{{- if contains "NodePort" .Values.Service.Type }}
+  export NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ template "__CHART__.fullname" . }})
+  export NODE_IP=$(kubectl get nodes --namespace {{ .Release.Namespace }} -o jsonpath="{.items[0].status.addresses[0].address}")
+  echo http://$NODE_IP:$NODE_PORT/login
 
-For more information, see the README.
+{{- else if contains "LoadBalancer" .Values.Service.Type }}
+  NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+        You can watch the status of by running 'kubectl get svc --namespace {{ .Release.Namespace }} -w {{ template "__CHART__.fullname" . }}'
+  export SERVICE_IP=$(kubectl get svc {{ template "__CHART__.fullname" . }} --namespace {{ .Release.Namespace }} --template "{{"{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}"}}")
+  echo http://$SERVICE_IP:{{ .Values.Service.Port }}/login
+
+{{- else if contains "ClusterIP"  .Values.Master.ServiceType }}
+  export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "component={{ template "__CHART__.fullname" . }}-master" -o jsonpath="{.items[0].metadata.name}")
+  echo http://127.0.0.1:{{ .Values.Service.Port }}
+  kubectl port-forward $POD_NAME {{ .Values.Service.Port }}:{{ .Values.Service.Port }}
+
+{{- end }}
+{{- end }}
+
+For more information, check the readme!

@@ -5,7 +5,7 @@
 
 ## The image to use with the resource
 ## Ref: https://quay.io/repository/littlemanco/apache-php
-image:
+Image:
 
 # securityContext:
 ## Whether the container should be run in "Privileged" mode (essentially, root on the host)
@@ -13,60 +13,71 @@ image:
 ## Default: false
 #  privileged:
 
-service:
+Service:
   ## What scope the service should be exposed in. One of:
   ## - LoadBalancer (to the world)
   ## - ClusterIP (to the cluster)
   ## - NodePort (to the world, in a custom way)
-  type: "LoadBalancer"
+  Type: "LoadBalancer"
+  ## If there is a port associated with a given service, expose it here.
+  # Port:
   ## If there is a particular IP that should be used for the service, specify it here.
   ## Note: It's quite unlikely that an IP should be specific. Normally, the best thing to do is leave it to Kubernetes
   ##       to allocate a free IP from the pool.
   ## Default: Automatically assign a random IP
   # privateIp:
   ## Only relevant if the `type` above is "LoadBalancer"
-  loadBalancer:
+  LoadBalancer:
     ## If there is already a reserved public IP that this load balancer should use, indicate it here.
     ## Default: Automatically assign a random, ephemeral IP
     # publicIp:
     ## If there should be firewall rules restricting the load balancer to a limited set of IPs, specify those IPs below
     ## in CIDR format. If all IPs shoud be allowed access, set the CIDR as "0.0.0.0/0"
-    allowedIps:
+    AllowedIps:
       - "0.0.0.0/0"
+    ## If there is a Hostname associated with this site, add it here and it will be rendered in the documentation.
+    # HostName:
 
 ## How many versions of this service to run on kubernetes
-replicas: 1
+Replicas: 1
 
 ## Ref: http://kubernetes.io/docs/user-guide/compute-resources/
 ## Ref: https://github.com/kubernetes/kubernetes/blob/master/docs/design/resource-qos.md
 ## Ref: https://docs.docker.com/engine/reference/run/#/runtime-constraints-on-resources
-resources:
-  requests:
+Resources:
+  Requests:
     ## How much CPU this container is expected to need
-    cpu: 100m
+    Cpu: "100m"
     ## How much memory this container is expected to need
-    memory: 512Mi
-  limits:
+    Memory: "512Mi"
+  Limits:
     ## The max CPU this container should be allowed to use
-    cpu: 100m
+    Cpu: "100m"
     ## The max memory this container should be allowed to use. Note: If a container exceeds its memory limit,
     ## it may terminated.
-    memory: 512Mi
+    Memory: "512Mi"
 
-persistence:
-  size: "10gb"
+Persistence:
+  Size: "10gb"
   # storageClass:
 
-monitoring:
+## Configuration to enable the easy provisioning of certificates with kube-cert-manager and a Boulder compatible CA
+Certificate:
+  Domain: "www.example.com"
+  Email: "user@example.com"
+  ## Consult the Kube cert manager docs for information on how to build this
+  Provider: "GoogleCloud"
+
+Monitoring:
   ## Whether to scrape this service with the montoring toolkit. Mostly useful for blackbox probing of a given service
   ## to ensure it's "up"
-  service:
-    scrape: "true"
+  Service:
+    Scrape: "true"
   ## Whether to scape the pods associated with this application. Useful for collecting metrics.
-  pods:
+  Pods:
     ## Monitoring shoudl be configured to only scrape pods that have a value of `true`
-    scrape: "true"
+    Scrape: "true"
     ## Path on which metrics are exposed
-    path: "/metrics"
+    Path: "/metrics"
     ## Port on which HTTP server is served
-    port: "9102"
+    Port: "9102"

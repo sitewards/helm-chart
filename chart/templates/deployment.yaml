@@ -23,11 +23,11 @@ spec:
     metadata:
       annotations:
         ## Only scrape pods that have a value of `true`
-        prometheus.io/scrape: "{{ .Values.monitoring.pod.scrape }}"
+        prometheus.io/scrape: "{{ .Values.Monitoring.Pod.Scrape }}"
         ## If the metrics path is not `/metrics` override this.
-        prometheus.io/port: "{{ .Values.monitoring.pod.port }}"
+        prometheus.io/port: "{{ .Values.Monitoring.Pod.Port }}"
         ## Scrape the pod on the indicated port instead of the default of `9102`.
-        prometheus.io/path: "{{ .Values.monitoring.pod.path | quote }}"
+        prometheus.io/path: "{{ .Values.Monitoring.Pod.Path | quote }}"
         ## Oftentimes, applicatins need to be restarted once once thier configuration has been updated. However,
         ## Kubernetes makes the assumption that watching the file for configuration change is the applications
         ## responsibiliy, and doesn't restart when files change. So, the lines below modify a propery that does trigger
@@ -118,20 +118,20 @@ spec:
           #       name: __SECRET_NAME__
           #       key: __KEY_USED_IN_SECRET_NAME__
           #
-          image: {{ .Values.image | quote }}
+          image: {{ .Values.Image | quote }}
           # args:
           #   - "command"
           #   - "line"
           #   - "arguments"
           resources:
             limits:
-              cpu: {{ .Values.resources.limits.cpu | quote }}
-              memory: {{ .Values.resources.limits.memory | quote }}
+              cpu: {{ .Values.Resources.Limits.Cpu | quote }}
+              memory: {{ .Values.Resources.Limits.Memory | quote }}
             requests:
-              cpu: {{ .Values.resources.requests.cpu | quote }}
-              memory: {{ .Values.resources.requests.memory | quote }}
+              cpu: {{ .Values.Resources.Requests.Cpu | quote }}
+              memory: {{ .Values.Resources.Requests.Memory | quote }}
           securityContext:
-            privileged: {{ default false .Values.securityContext.privileged }}
+            privileged: {{ default false .Values.SecurityContext.Privileged }}
             # capabilities:
               # add:
                 # - "SETPCAP"

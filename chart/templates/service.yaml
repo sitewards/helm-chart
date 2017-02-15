@@ -3,7 +3,7 @@ kind: "Service"
 apiVersion: "v1"
 metadata:
   annotations:
-    prometheus.io/scrape: "{{ .Values.monitoring.service.scrape }}"
+    prometheus.io/scrape: "{{ .Values.Monitoring.Service.Scrape }}"
   labels:
     app: {{ template "__CHART__.fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
@@ -18,9 +18,9 @@ spec:
     - protocol: "__CONTAINER_PORT_PROTOCOL__"
       name: "__CONTAINER_PORT_NAME__"
       port: __CONTAINER_PORT__
-  type: {{ default "ClusterIP" .Values.service.type }}
-  {{ if eq .Values.service.type "LoadBalancer" -}}
-  {{ if .Values.service.loadBalancer.publicIp -}}
-  loadBalancerIP: {{ .Values.service.loadBalancer.publicIp }}
+  type: {{ default "ClusterIP" .Values.Service.Type }}
+  {{ if eq .Values.Service.Type "LoadBalancer" -}}
+  {{ if .Values.Service.LoadBalancer.PublicIp -}}
+  loadBalancerIP: {{ .Values.Service.LoadBalancer.PublicIp }}
   {{ end -}}
   {{ end -}}
