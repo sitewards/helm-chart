@@ -36,6 +36,57 @@ An example PV might look something like the following:
       path: /mnt/mysql
 ```
 
+### Existing PersistentVolumeClaims
+
+1. Create the PersistentVolume
+```bash
+$ cat <<EOT | kubectl create -f -
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: test
+  labels:
+    volume_name: test
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    server: nfs.example.com
+    path: "/test"
+  persistentVolumeReclaimPolicy: Retain
+EOT
+```
+1. Create the PersistentVolumeClaim
+```bash
+$ cat <<EOT | kubectl create -f -
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: test
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  selector:
+    matchLabels:
+      volume_name: test
+EOT
+```
+1. Create the directory, on a worker
+```bash
+# mkdir -m 1777 /NFS_MOUNT/test
+```
+1. Install the chart
+```bash
+$ helm install --name test --set Persistence.existingClaim=test .
+```
+
 ## Usage
 
 // Todo: Write up usage.

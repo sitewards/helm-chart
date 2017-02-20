@@ -59,6 +59,7 @@ Resources:
 
 Persistence:
   Size: "10gb"
+  # existingClaim:
   # storageClass:
 
 ## Configuration to enable the easy provisioning of certificates with kube-cert-manager and a Boulder compatible CA

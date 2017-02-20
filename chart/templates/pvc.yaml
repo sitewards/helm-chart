@@ -1,3 +1,4 @@
+{{- if not .Values.Persistence.existingClaim }}
 ---
 kind: "PersistentVolumeClaim"
 apiVersion: "v1"
@@ -15,3 +16,4 @@ spec:
   resources:
     requests:
       storage: {{ .Values.Persistence.Size | quote }}
+{{- end }}
