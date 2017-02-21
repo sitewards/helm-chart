@@ -64,7 +64,7 @@ spec:
       ##
       #   - name: "__VOLUME_NAME__"
       #     persistentVolumeClaim:
-      #       claimName: "__CLAIM_NAME__"
+      #       claimName: {{ template "__CHART__.pvcName" . }}
       ##
       ## CONFIGMAP
       ##
