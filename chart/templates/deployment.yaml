@@ -124,12 +124,7 @@ spec:
           #   - "line"
           #   - "arguments"
           resources:
-            limits:
-              cpu: {{ .Values.Resources.Limits.Cpu | quote }}
-              memory: {{ .Values.Resources.Limits.Memory | quote }}
-            requests:
-              cpu: {{ .Values.Resources.Requests.Cpu | quote }}
-              memory: {{ .Values.Resources.Requests.Memory | quote }}
+{{ toYaml .Values.Resources | indent 12 }}
           securityContext:
             privileged: {{ default false .Values.SecurityContext.Privileged }}
             # capabilities:
