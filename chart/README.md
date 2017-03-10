@@ -84,7 +84,7 @@ EOT
 ```
 1. Install the chart
 ```bash
-$ helm install --name test --set Persistence.existingClaim=test .
+$ helm install --name test --set persistence.existingClaim=test .
 ```
 
 ## Usage

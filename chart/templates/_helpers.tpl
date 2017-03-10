@@ -19,8 +19,8 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this
 Provide a pre-defined claim or a claim based on the Release
 */}}
 {{- define "__CHART__.pvcName" -}}
-{{- if .Values.Persistence.existingClaim }}
-{{- .Values.Persistence.existingClaim }}
+{{- if .Values.persistence.existingClaim }}
+{{- .Values.persistence.existingClaim }}
 {{- else -}}
 {{- template "__CHART__.fullname" . }}
 {{- end -}}
