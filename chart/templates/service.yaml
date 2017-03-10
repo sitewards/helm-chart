@@ -3,8 +3,8 @@ kind: "Service"
 apiVersion: "v1"
 metadata:
   annotations:
-    prometheus.io/scrape: "{{ .Values.Monitoring.Service.Scrape }}"
-    {{ if eq .Values.Service.Type "LocaBalancer" -}}
+    prometheus.io/scrape: "{{ .Values.monitoring.service.scrape }}"
+    {{ if eq .Values.service.type "LoadBalancer" -}}
     service.beta.kubernetes.io/external-traffic: "OnlyLocal"
     {{ end -}}
   labels:
@@ -21,9 +21,9 @@ spec:
     - protocol: "__CONTAINER_PORT_PROTOCOL__"
       name: "__CONTAINER_PORT_NAME__"
       port: __CONTAINER_PORT__
-  type: {{ default "ClusterIP" .Values.Service.Type }}
-  {{ if eq .Values.Service.Type "LoadBalancer" -}}
-  {{ if .Values.Service.LoadBalancer.PublicIp -}}
-  loadBalancerIP: {{ .Values.Service.LoadBalancer.PublicIp }}
+  type: {{ default "ClusterIP" .Values.service.type }}
+  {{ if eq .Values.service.type "LoadBalancer" -}}
+  {{ if .Values.service.loadBalancer.PublicIp -}}
+  loadBalancerIP: {{ .Values.service.loadBalancer.PublicIp }}
   {{ end -}}
   {{ end -}}

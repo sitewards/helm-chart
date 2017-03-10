@@ -9,8 +9,8 @@ metadata:
     release: "{{ .Release.Name }}"
   name: {{ template "__CHART__.fullname" . }}
 spec:
-  domain: {{ .Values.Certificate.Domain | quote }}
-  email: {{ .Values.Certificate.Email | quote }}
-  provider: {{ .Values.Certificate.Provider | quote }}
+  domain: {{ .Values.certificate.domain | quote }}
+  email: {{ .Values.certificate.email | quote }}
+  provider: {{ .Values.certificate.provider | quote }}
   secretName: "tls-{{ template "__CHART__.fullname" . }}"
 
