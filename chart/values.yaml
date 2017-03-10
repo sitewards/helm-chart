@@ -7,11 +7,11 @@
 ## Ref: https://quay.io/repository/littlemanco/apache-php
 Image:
 
-# securityContext:
+SecurityContext:
 ## Whether the container should be run in "Privileged" mode (essentially, root on the host)
 ## Ref: http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_securitycontext
 ## Default: false
-#  privileged:
+  Privileged:
 
 Service:
   ## What scope the service should be exposed in. One of:
@@ -45,20 +45,22 @@ Replicas: 1
 ## Ref: https://github.com/kubernetes/kubernetes/blob/master/docs/design/resource-qos.md
 ## Ref: https://docs.docker.com/engine/reference/run/#/runtime-constraints-on-resources
 Resources:
-  Requests:
+  # Note: The below is injected wholesale into the template; it intentionally does not follow the standard format for
+  # values.yaml
+  requests:
     ## How much CPU this container is expected to need
-    Cpu: "100m"
+    cpu: "100m"
     ## How much memory this container is expected to need
-    Memory: "512Mi"
-  Limits:
+    memory: "512Mi"
+  limits:
     ## The max CPU this container should be allowed to use
-    Cpu: "100m"
+    cpu: "100m"
     ## The max memory this container should be allowed to use. Note: If a container exceeds its memory limit,
     ## it may terminated.
-    Memory: "512Mi"
+    memory: "512Mi"
 
 Persistence:
-  Size: "10gb"
+  Size: "10Gi"
   # existingClaim:
   # storageClass:
 

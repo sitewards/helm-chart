@@ -47,7 +47,8 @@ spec:
           # - name: "FOO"
           #   value: "BAR"
           image: "__IMAGE__" # Todo: Update this
-          imagePullPolicy: "IfNotPresent"
+          resources:
+{{ toYaml .Values.Resources | indent 12 }}
           # args:
           #   - "command"
           #   - "line"
