@@ -21,7 +21,7 @@ spec:
       port: __CONTAINER_PORT__
   type: {{ default "ClusterIP" .Values.service.type }}
   {{ if eq .Values.service.type "LoadBalancer" -}}
-  {{ if .Values.service.loadBalancer.PublicIp -}}
-  loadBalancerIP: {{ .Values.service.loadBalancer.PublicIp }}
+  {{ if .Values.service.loadBalancer.publicIp -}}
+  loadBalancerIP: {{ .Values.service.loadBalancer.publicIp }}
   {{ end -}}
   {{ end -}}
