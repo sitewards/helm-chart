@@ -35,7 +35,7 @@ Installation
 
 .. Code:: bash
 
-  $ git clone https://github.com/littlemanco/helm-chart ${HOME}/.helm/starters/littlemanco/chart
+  $ git clone https://github.com/sitewards/helm-chart ${HOME}/.helm/starters/sitewards/chart
   
 Updates
 -------
@@ -44,7 +44,7 @@ I update these templates regularly. If you need to fetch the newer version, cd i
 
 .. Code:: bash
 
-  $ cd ${HOME}/.helm/starters/littlemanco/chart
+  $ cd ${HOME}/.helm/starters/sitewards/chart
   $ git pull
 
 Usage
@@ -54,7 +54,7 @@ Helm allows the usage of a "template" chart when creating other charts, as follo
 
 .. Code:: bash
 
-  $ helm create chart --starter=littlemanco/chart ${CHART_NAME}
+  $ helm create chart --starter=sitewards/chart ${CHART_NAME}
 
 Please note: For some reason, helm creates the charts where the files are executable. To fix this, run:
 
