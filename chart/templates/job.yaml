@@ -12,6 +12,13 @@ spec:
   template:
     metadata:
       annotations:
+        ## Only scrape pods that have a value of `true`
+        prometheus.io/scrape: "{{ default "true" .Values.monitoring.pod.scrape }}"
+        ## Scrape the pod on the indicated port
+        prometheus.io/port: "{{ default "9102" .Values.monitoring.pod.port }}"
+        ## If the metrics path is not `/metrics` override this.
+        prometheus.io/path: "{{ default "/metrics" .Values.monitoring.pod.path }}"
+        ##
         ## Oftentimes, applicatins need to be restarted once once thier configuration has been updated. However,
         ## Kubernetes makes the assumption that watching the file for configuration change is the applications
         ## responsibiliy, and doesn't restart when files change. So, the lines below modify a propery that does trigger
