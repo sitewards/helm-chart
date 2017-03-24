@@ -14,10 +14,11 @@ spec:
       annotations:
         ## Only scrape pods that have a value of `true`
         prometheus.io/scrape: "{{ default "true" .Values.monitoring.pod.scrape }}"
-        ## scrape the pod on the indicated port instead of the default of `9102`.
-        prometheus.io/port: "{{ default "9102" | .Values.monitoring.pod.port }}"
         ## If the metrics path is not `/metrics` override this.
-        prometheus.io/path: "{{ default "/metrics" .Values.monitoring.pod.path | quote }}"
+        prometheus.io/port: "{{ default "9102" .Values.monitoring.pod.port }}"
+        ## scrape the pod on the indicated port instead of the default of `9102`.
+        prometheus.io/path: "{{ default "metrics" .Values.monitoring.pod.path }}"
+        ##
         ## Oftentimes, applicatins need to be restarted once once thier configuration has been updated. However,
         ## Kubernetes makes the assumption that watching the file for configuration change is the applications
         ## responsibiliy, and doesn't restart when files change. So, the lines below modify a propery that does trigger
@@ -29,34 +30,148 @@ spec:
         # checksum/config: {{ include (print $.Chart.Name "/templates/secret.yaml") . | sha256sum }}
         # checksum/config: {{ include (print $.Chart.Name "/templates/configmap.yaml") . | sha256sum }}
       labels:
-        application: "node-exporter"
-        role: "metrics"
-        version: "1.0.0"
+        app: {{ template "__CHART__.fullname" . }}
+        release: "{{ .Release.Name }}"
     spec:
+      ## Volumes are how Kubernetes expresses either networked storage or other metadata in the filesystem. There are
+      ## storage types, the most useful of which are illustrated below. Remember to uncomment the volumes: node if you
+      ## decide to use them!
+      ##
       # volumes:
-      #   - name: "nodeexporter-etc-conf-d"
-      # configMap:
-      #   - name: "nodeexporter-data"
+      ##
+      ## EMPTY DIR - Useful for scratch space, such as for CI
+      ##
+      #   - name: "__VOLUME_NAME__"
+      #     emptyDir: {}
+      ##
+      ## HOST PATH - Useful when mounting some host proprty into hte container
+      ##
+      #   - name: "__VOLUME_NAME__"
       #     hostPath:
-      #       path: /data/nodeexporter/
-      hostNetwork: true
-      hostPID: true
+      #       path: "/path/to/your/folder"
+      ##
+      ## PERSISTENT VOLUME CLAIM - Useful to access network storage. Should be used in preference to GcePersistantDisk
+      ##                           et. al. You will need to define a persistent volume as well, for this to work.
+      ##
+      #   - name: "__VOLUME_NAME__"
+      #     persistentVolumeClaim:
+      #       claimName: {{ template "__CHART__.pvcName" . }}
+      ##
+      ## CONFIGMAP
+      ##
+      #   - name: "__VOLUME_NAME__"
+      #     configMap:
+      #       name: "__CONFIGMAP_NAME__"
+      ##
+      ## Note: You can also use single files from a configmap, with a syntax called "subPath". An example is below:
+      ##
+      #   - name: "__VOLUME_NAME__"
+      #     configMap:
+      #       name: "__CONFIGMAP_NAME__"
+      #       items:
+      #         - key: "__ITEM_KEY__"
+      #           path: "path/to/item"
+      ##
+      ## SECRET
+      ##
+      #   - name: "__VOLUME_NAME__"
+      #     secret:
+      #       secretName: "__SECRET_NAME__"
+      ##
+      ## DOWNWARD API
+      ##
+      #   - name: "__VOLUME_NAME__"
+      #     downwardAPI:
+      #       items:
+      #         - path: "labels"
+      #           fieldRef:
+      #             fieldPath: metadata.labels
+      #         - path: "annotations"
+      #           fieldRef:
+      #             fieldPath: metadata.annotations
+      hostNetwork: {{ default false .Values.pod.hostNetwork }}
+      hostPID: {{ default false .Values.pod.hostPID }}
       containers:
         - name: {{ template "__CHART__.name" }}
+          ## Environment variables can be populated in a number of ways, including secrets, or just string values. Below
+          ## are some examples for you to copy-paste. Remember to uncomment the `env` node!
+          #
           # env:
+          #
+          ## An example of a simple key value pair
+          #
           # - name: "FOO"
           #   value: "BAR"
-          image: "__IMAGE__" # Todo: Update this
-          resources:
-{{ toYaml .Values.resources | indent 12 }}
+          #
+          ## An example of environment variables from a secret
+          #
+          # - name: "SECRET"
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: __SECRET_NAME__
+          #       key: __KEY_USED_IN_SECRET_NAME__
+          #
+          image: {{ .Values.pod.image | quote }}
           # args:
           #   - "command"
           #   - "line"
           #   - "arguments"
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+          securityContext:
+            privileged: {{ default false .Values.securityContext.privileged }}
+            # capabilities:
+              # add:
+                # - "SETPCAP"
+                # - "SYS_MODULE"
+                # - "SYS_RAWIO"
+                # - "SYS_PACCT"
+                # - "SYS_ADMIN"
+                # - "SYS_NICE"
+                # - "SYS_RESOURCE"
+                # - "SYS_TIME"
+                # - "SYS_TTY_CONFIG"
+                # - "MKNOD"
+                # - "AUDIT_WRITE"
+                # - "AUDIT_CONTROL"
+                # - "MAC_OVERRIDE"
+                # - "MAC_ADMIN"
+                # - "NET_ADMIN"
+                # - "SYSLOG"
+                # - "CHOWN"
+                # - "NET_RAW"
+                # - "DAC_OVERRIDE"
+                # - "FOWNER"
+                # - "DAC_READ_SEARCH"
+                # - "FSETID"
+                # - "KILL"
+                # - "SETGID"
+                # - "SETUID"
+                # - "LINUX_IMMUTABLE"
+                # - "NET_BIND_SERVICE"
+                # - "NET_BROADCAST"
+                # - "IPC_LOCK"
+                # - "IPC_OWNER"
+                # - "SYS_CHROOT"
+                # - "SYS_PTRACE"
+                # - "SYS_BOOT"
+                # - "LEASE"
+                # - "SETFCAP"
+                # - "WAKE_ALARM"
+                # - "BLOCK_SUSPEND"
           ports:
+            ## The container port to expose, and how to expose it. Possible values are any valid port number. You
+            ## probably want to expose your application port, though.
+            ##
+            ## See http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_containerport
             - containerPort: __CONTAINER_PORT__
+              ## What protocol the port uses. Possible values are:
+              # - "TCP"
+              # - "UDP"
               protocol: "__CONTAINER_PORT_PROTOCOL__"
+              {{- if pod.hostPID -}}
               hostPort: __CONTAINER_PORT__
+              {{- end }}
               name: "__CONTAINER_PORT_NAME__"
           # volumeMounts:
           #   - name: "nodeexporter-etc-conf-d"
@@ -164,5 +279,20 @@ spec:
           # readinessProbe:
           ##
           ## __LIVENESS_PROBE__
-      restartPolicy: "Always"
-      securityContext: {}
+      ## Whether to restart this pod. Possible values are:
+      ## - Always (Sensible Default)
+      ## - OnFailure
+      ## - Never
+      ##
+      ## For more information, see http://kubernetes.io/docs/user-guide/pod-states/#restartpolicy
+      restartPolicy: "__RESTART_POLICY__"
+      securityContext:
+        ## Volumes which support ownership management are modified to be owned and writable by the GID specified in
+        ## fsGroup. See the Ownership Management design document for more details.
+        ## See: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/
+        ##      volume-ownership-management.md
+        # fsGroup: 1000
+        ## A list of groups applied to the first process run in each container, in addition to the container’s primary
+        ## GID. If unspecified, no groups will be added to any container.
+        # supplementalGroups: [1000]
+

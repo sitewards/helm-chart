@@ -3,9 +3,17 @@
 ## Default: use the chart name
 # nameOverride:
 
-## The image to use with the resource
-## Ref: https://quay.io/repository/littlemanco/apache-php
-image:
+pod:
+  ## The image to use with the resource
+  ## Ref: https://quay.io/repository/littlemanco/apache-php
+  image:
+  ## Host networking requested for this pod. Use the host’s network namespace. If this option is set, the ports that
+  ## will be used must be specified.
+  ## Ref: https://kubernetes.io/docs/api-reference/v1/definitions/#_v1_podspec
+  hostNetwork: false
+  ## Use the host’s pid namespace
+  ## Ref: https://kubernetes.io/docs/api-reference/v1/definitions/#_v1_podspec
+  hostPID: false
 
 securityContext:
 ## Whether the container should be run in "privileged" mode (essentially, root on the host)

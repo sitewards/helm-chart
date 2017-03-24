@@ -119,7 +119,7 @@ spec:
           #       name: __SECRET_NAME__
           #       key: __KEY_USED_IN_SECRET_NAME__
           #
-          image: {{ .Values.image | quote }}
+          image: {{ .Values.pod.image | quote }}
           # args:
           #   - "command"
           #   - "line"
