@@ -13,11 +13,13 @@ spec:
     metadata:
       annotations:
         ## Only scrape pods that have a value of `true`
-        prometheus.io/scrape: "{{ default "true" .Values.monitoring.pod.scrape }}"
+        prometheus.io/scrape: {{ default "true" .Values.monitoring.pod.scrape | quote }}
         ## If the metrics path is not `/metrics` override this.
-        prometheus.io/port: "{{ default "9102" .Values.monitoring.pod.port }}"
+        prometheus.io/port: {{ default "9102" .Values.monitoring.pod.port | quote }}
         ## scrape the pod on the indicated port instead of the default of `9102`.
-        prometheus.io/path: "{{ default "metrics" .Values.monitoring.pod.path }}"
+        prometheus.io/path: {{ default "metrics" .Values.monitoring.pod.path | quote }}
+        ## Scrape the pod over protocol
+        prometheus.io/scheme: {{ default "http" .Values.monitoring.pod.scheme | quote }}
         ##
         ## Oftentimes, applicatins need to be restarted once once thier configuration has been updated. However,
         ## Kubernetes makes the assumption that watching the file for configuration change is the applications
