@@ -15,12 +15,11 @@ pod:
     ## Use the host’s pid namespace
     ## Ref: https://kubernetes.io/docs/api-reference/v1/definitions/#_v1_podspec
     hostPID: false
-
-securityContext:
-## Whether the container should be run in "privileged" mode (essentially, root on the host)
-## Ref: http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_securitycontext
-## Default: false
-  privileged:
+    securityContext:
+    ## Whether the container should be run in "privileged" mode (essentially, root on the host)
+    ## Ref: http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_securitycontext
+    ## Default: false
+      privileged:
 
 service:
   ## What scope the service should be exposed in. One of:

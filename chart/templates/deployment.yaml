@@ -121,7 +121,7 @@ spec:
           #       name: __SECRET_NAME__
           #       key: __KEY_USED_IN_SECRET_NAME__
           #
-          image: {{ .Values.pod.__CONTAINER_NAME__image | quote }}
+          image: {{ .Values.pod.__CONTAINER_NAME__.image | quote }}
           # args:
           #   - "command"
           #   - "line"
@@ -129,7 +129,7 @@ spec:
           resources:
 {{ toYaml .Values.resources | indent 12 }}
           securityContext:
-            privileged: {{ default false .Values.securityContext.privileged }}
+            privileged: {{ default false .Values.pod.__CONTAINER_NAME__.securityContext.privileged }}
             # capabilities:
               # add:
                 # - "SETPCAP"
