@@ -7,6 +7,20 @@
     $ helm upgrade --install path/to/__NAME__ __NAME__
 ```
 
+## Configuration
+
+All configuration values are documented in values.yaml. Check that for references, default values etc. To modify a
+configuration value for a chart, you can either supply your own values.yaml overriding the default one in the repo:
+
+```bash
+$ helm upgrade --install path/to/__NAME__ __NAME__ --values path/to/custom/values/file.yaml
+```
+
+Or, you can override an individual configuration setting with `helm upgrade --set`
+
+```bash
+$ helm upgrade --install path/to/__NAME__ __NAME__ --set pod.__CONTAINER_NAME__.image="your/image:1.0.0"
+
 ## Usage
 
 // Todo: Write up usage.

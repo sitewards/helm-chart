@@ -4,22 +4,22 @@
 # nameOverride:
 
 pod:
-  ## The image to use with the resource
-  ## Ref: https://quay.io/repository/littlemanco/apache-php
-  image:
-  ## Host networking requested for this pod. Use the host’s network namespace. If this option is set, the ports that
-  ## will be used must be specified.
-  ## Ref: https://kubernetes.io/docs/api-reference/v1/definitions/#_v1_podspec
-  hostNetwork: false
-  ## Use the host’s pid namespace
-  ## Ref: https://kubernetes.io/docs/api-reference/v1/definitions/#_v1_podspec
-  hostPID: false
-
-securityContext:
-## Whether the container should be run in "privileged" mode (essentially, root on the host)
-## Ref: http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_securitycontext
-## Default: false
-  privileged:
+  __CONTAINER_NAME__:
+    ## The image to use with the resource
+    ## Ref: https://__CONTAINER_IMAGE__
+    image: __CONTAINER_IMAGE__
+    ## Host networking requested for this pod. Use the host’s network namespace. If this option is set, the ports that
+    ## will be used must be specified.
+    ## Ref: https://kubernetes.io/docs/api-reference/v1/definitions/#_v1_podspec
+    hostNetwork: false
+    ## Use the host’s pid namespace
+    ## Ref: https://kubernetes.io/docs/api-reference/v1/definitions/#_v1_podspec
+    hostPID: false
+    securityContext:
+      ## Whether the container should be run in "privileged" mode (essentially, root on the host)
+      ## Ref: http://kubernetes.io/docs/api-reference/v1/definitions/#_v1_securitycontext
+      ## Default: false
+      privileged:
 
 service:
   ## What scope the service should be exposed in. One of:
@@ -46,8 +46,10 @@ service:
     ## If there is a Hostname associated with this site, add it here and it will be rendered in the documentation.
     # hostName:
 
-## How many versions of this service to run on kubernetes
-replicas: 1
+## How many versions of the deployment to run on kubernetes
+## Default: 2
+deployment:
+  replicas: 1
 
 ## More generally, a "request" can be thought of as "how much is this container expected to need usually". it should be
 ## possible to burst outside these constraints (during a high load operation). However, Kubernetes may kill the pod
