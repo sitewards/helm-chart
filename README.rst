@@ -66,7 +66,15 @@ This lets us "pre-populate" a chart with much of the boilerplate that is repeate
 we know to be unique has a placeholder of the format `__PLACEHOLDER__`, and anything that needs further attention
 once the chart has been generated should have a `todo` and extensive documentation.
 
-Not all documentation has been finished (at the time of writing, in fact, none of it does).
+Not all documentation has been finished.
+
+A list of the `__` placeholders and their intended purpose is below:
+
+| Placeholder         | Purpose                                                                             |
+|---------------------|-------------------------------------------------------------------------------------|
+| __CHART__           | The name of the chart e.g. `linkerd`                                                |
+| __CONTAINER_NAME__  | The name of the application container e.g. `kubectl`                                |
+| __CONTAINER_IMAGE__ | The image ref of the container to be used e.g. `quay.io/littlemanco/apache-php`     |
 
 Development
 -----------

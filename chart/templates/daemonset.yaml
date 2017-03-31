@@ -91,10 +91,10 @@ spec:
       #         - path: "annotations"
       #           fieldRef:
       #             fieldPath: metadata.annotations
-      hostNetwork: {{ default false .Values.pod.hostNetwork }}
-      hostPID: {{ default false .Values.pod.hostPID }}
+      hostNetwork: {{ default false .Values.pod.__CONTAINER_NAME__.hostNetwork }}
+      hostPID: {{ default false .Values.pod.__CONTAINER_NAME__.hostPID }}
       containers:
-        - name: {{ template "__CHART__.name" }}
+        - name: __CONTAINER_NAME__
           ## Environment variables can be populated in a number of ways, including secrets, or just string values. Below
           ## are some examples for you to copy-paste. Remember to uncomment the `env` node!
           #
@@ -113,7 +113,7 @@ spec:
           #       name: __SECRET_NAME__
           #       key: __KEY_USED_IN_SECRET_NAME__
           #
-          image: {{ .Values.pod.image | quote }}
+          image: {{ .Values.pod.__CONTAINER_NAME__.image | quote }}
           # args:
           #   - "command"
           #   - "line"
@@ -171,7 +171,7 @@ spec:
               # - "TCP"
               # - "UDP"
               protocol: "__CONTAINER_PORT_PROTOCOL__"
-              {{- if pod.hostNetwork -}}
+              {{- if pod.__CONTAINER_NAME__.hostNetwork -}}
               hostPort: __CONTAINER_PORT__
               {{- end }}
               name: "__CONTAINER_PORT_NAME__"
@@ -199,8 +199,8 @@ spec:
             # tcpSocket:
             ##
             ## The "tcpSocket" health check is useful for when an application exposes a port, but there are no utilities
-            ## to determine whether that application is healthy over that port. So, the fact the application is listening
-            ## on that port is taken as a "proxy" health measure.
+            ## to determine whether that application is healthy over that port. So, the fact the application is
+            ## listening on that port is taken as a "proxy" health measure.
             ##
             ##
               # port: "__CONTAINER_PORT_NAME__"
@@ -297,4 +297,3 @@ spec:
         ## A list of groups applied to the first process run in each container, in addition to the container’s primary
         ## GID. If unspecified, no groups will be added to any container.
         # supplementalGroups: [1000]
-
