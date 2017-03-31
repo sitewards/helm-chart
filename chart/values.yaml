@@ -46,8 +46,10 @@ service:
     ## If there is a Hostname associated with this site, add it here and it will be rendered in the documentation.
     # hostName:
 
-## How many versions of this service to run on kubernetes
-replicas: 1
+## How many versions of the deployment to run on kubernetes
+## Default: 2
+deployment:
+  replicas: 1
 
 ## More generally, a "request" can be thought of as "how much is this container expected to need usually". it should be
 ## possible to burst outside these constraints (during a high load operation). However, Kubernetes may kill the pod
