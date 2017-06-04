@@ -1,5 +1,7 @@
 ---
-kind: "ClusterRoleBinding"
+# Choose One
+# kind: "ClusterRoleBinding"
+# kind: "RoleBinding"
 metadata:
   name: {{ template __CHART__.fullname . }}
   labels:
