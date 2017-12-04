@@ -36,7 +36,7 @@ Installation
 .. Code:: bash
 
   $ git clone https://github.com/sitewards/helm-chart ${HOME}/.helm/starters/sitewards/chart
-  
+
 Updates
 -------
 
@@ -102,7 +102,7 @@ https://github.com/kubernetes/helm
 Contributing
 ------------
 
-Contributions are always welcome! Nothing is to small, and the best place to start is to open an issue.
+Contributions are always welcome! Nothing is too small, and the best place to start is to open an issue.
 
 References
 ----------
