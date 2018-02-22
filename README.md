@@ -57,9 +57,10 @@ Not all documentation has been finished.
 
 A list of the `__` placeholders and their intended purpose is below:
 
-* `__CHART__`: The name of the chart e.g. `linkerd`
-* `__CONTAINER_NAME__`:  The name of the application container e.g. `kubectl`
-* `__CONTAINER_IMAGE__`: The image ref of the container to be used e.g. `quay.io/littlemanco/apache-php`
+* `__NAME__`: The human readable name of the chart of the form `/A-Za-z-_ /` e.g. `Sitewards GmbH`
+* `__CHART__`: The reference of the chart of the form `/a-z/` e.g. `linkerd`.
+* `__CONTAINER_NAME__`:  The name of the application container of the form `a-z` e.g. `kubectl`
+* `__CONTAINER_IMAGE__`: The image ref of the container to be used of the form `/a-z.\//-_` e.g. `quay.io/littlemanco/apache-php`
 
 ## Development
 
