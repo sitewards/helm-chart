@@ -81,6 +81,18 @@ persistence:
   size: "10Gi"
   # existingClaim:
   # storageClass:
+  ## If the storage class has been defined specifically for this chart, modify the PVC to select that storage class
+  ## All of the requirements, from both matchLabels and matchExpressions are ANDed together – they must all be satisfied
+  ## in order to match.
+  # selector:
+    ## Key / Value pair to match
+    # matchLabels:
+      # foo: "bar"
+    # matchExpressions:
+      #- key: environment
+      #  operator: In
+      #  values:
+      #    - dev
 
 ## Configuration to enable the easy provisioning of certificates with kube-cert-manager and a Boulder compatible CA
 certificate:
