@@ -9,4 +9,4 @@
 # dependencies:
 #   - name: "apache"
 #     version: "1.2.3-1"
-#     repository: "http://storage.googleapis.com/kubernetes-charts"
+#     repository: "https://kubernetes-charts.storage.googleapis.com"
