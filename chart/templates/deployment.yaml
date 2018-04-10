@@ -272,6 +272,10 @@ spec:
                 # - name: "X-Custom-Header"
                 #   value: "Awesome"
               ##
+              ## How long to wait between probes
+              ##
+              # periodSeconds: 10
+              ##
               # initialDelaySeconds: 5
               ##
               ## Number of seconds after which the probe times out. Minimum value is 1
