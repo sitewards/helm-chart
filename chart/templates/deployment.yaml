@@ -265,6 +265,11 @@ spec:
               ##
               # port: "__CONTAINER_PORT_NAME__"
               ##
+              ## Whether to connect using the "http" or "https" protocol (i.e. whether to enscapsulate the connection in
+              ## TLS.
+              ##
+              # scheme: "http"
+              ##
               ## Additional HTTP headers can be supplied to the HTTP health check to modify the behaviour, such as to
               ## supply a HOST header.
               ##
