@@ -181,6 +181,18 @@ spec:
               protocol: "__CONTAINER_PORT_PROTOCOL__"
               ## What designation to give the port. Useful later, so we can reference the port by name in the health
               ## check.
+              ## 
+              ## To be comptible with Istio, the definition must be "${PROTOCOL}-[${NAME}]"
+              ##
+              ## For example,
+              ## http
+              ## http2
+              ## redis-public
+              ##
+              ## If the protocol does not follow this pattern or is not recognized, it will be treated as TCP traffic by
+              ## Istio
+              ##
+              ## See https://istio.io/docs/setup/kubernetes/spec-requirements/
               name: "__CONTAINER_PORT_NAME__"
           # volumeMounts:
           #   - name: "webserver-etc-conf-d"
