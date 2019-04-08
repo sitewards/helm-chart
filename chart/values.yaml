@@ -128,3 +128,6 @@ monitoring:
     path: "/metrics"
     ## Port on which HTTP server is served
     port: "9102"
+
+secret:
+  bar: "I'm a secret"
