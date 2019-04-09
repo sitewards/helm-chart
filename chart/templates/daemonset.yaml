@@ -171,7 +171,7 @@ spec:
               # - "TCP"
               # - "UDP"
               protocol: "__CONTAINER_PORT_PROTOCOL__"
-              {{- if pod.__CONTAINER_NAME__.hostNetwork -}}
+              {{- if .Values.pod.__CONTAINER_NAME__.hostNetwork -}}
               hostPort: __CONTAINER_PORT__
               {{- end }}
               name: "__CONTAINER_PORT_NAME__"
