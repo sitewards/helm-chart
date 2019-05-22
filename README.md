@@ -40,7 +40,7 @@ $ git pull
 Helm allows the usage of a "template" chart when creating other charts, as follows:
 
 ```bash
-$ helm create ${CHART_NAME} --starter=sitewards/chart 
+$ helm create ${CHART_NAME} --starter=sitewards/chart/chart
 ```
 
 Please note: For some reason, older versions of helm created the charts where the files are executable. If this affects your chart, to fix this, run:
