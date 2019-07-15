@@ -23,7 +23,7 @@ and there is no way to configure the default Helm chart. See:
 ## Installation
 
 ```bash
-$ git clone https://github.com/sitewards/helm-chart ${HOME}/.helm/starters/sitewards/chart
+$ git clone https://github.com/sitewards/helm-chart ${HOME}/.helm/starters/sitewards
 ```
 
 ## Updates
@@ -31,7 +31,7 @@ $ git clone https://github.com/sitewards/helm-chart ${HOME}/.helm/starters/sitew
 I update these templates regularly. If you need to fetch the newer version, cd into the directory and run the git pull.
 
 ```bash
-$ cd ${HOME}/.helm/starters/sitewards/chart
+$ cd ${HOME}/.helm/starters/sitewards
 $ git pull
 ```
 
